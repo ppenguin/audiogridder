@@ -15,6 +15,12 @@ macro(ag_add_plugin type)
     set(productname "${productname}${type}")
   endif()
 
+  if(${USE_VST} STREQUAL "1")
+    set(formats AU VST3 VST)
+  else()
+    set(formats AU VST3)
+  endif()
+
   juce_add_plugin(AudioGridder${type}
     VERSION "${AG_VERSION}"
     PLUGIN_NAME "${pluginname}"
@@ -25,7 +31,7 @@ macro(ag_add_plugin type)
     DESCRIPTION "DSP Server Plugin"
     PLUGIN_MANUFACTURER_CODE XE47
     PLUGIN_CODE ${AG_PLUGIN_CODE}
-    FORMATS AU VST3 VST
+    FORMATS ${formats}
     IS_SYNTH ${AG_IS_SYNTH}
     NEEDS_MIDI_INPUT TRUE
     NEEDS_MIDI_OUTPUT TRUE
